@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+tqdm = "*"
+PyYAML = "*"
+torch = "*"
+torchvision = "*"
+pip = "*"
+pytorch-fid = "*"
+tensorboard = "*"
+tensorboardx = "*"
+tensorflow-gpu = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

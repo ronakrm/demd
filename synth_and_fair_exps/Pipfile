@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+scipy = "*"
+pot = "*"
+cvxopt = "*"
+tqdm = "*"
+torchvision = "*"
+pandas = "*"
+h5py = "*"
+folktables = "*"
+matplotlib = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
