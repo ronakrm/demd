@@ -8,6 +8,11 @@ For current plug-and-play, check out the `demd` folder within, and particularly 
 
 
 ## Reference
+Efficient Discrete Multi Marginal Optimal Transport Regularization.  
+Ronak Mehta, Jeffery Kline, Vishnu Suresh Lokhande, Glenn Fung, Vikas Singh.  
+ICLR 2023, Spotlight.  
+[https://openreview.net/forum?id=R98ZfMt-jE](https://openreview.net/forum?id=R98ZfMt-jE)
+
 ```
 @inproceedings{
 mehta2023efficient,
