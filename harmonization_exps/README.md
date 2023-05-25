@@ -20,6 +20,9 @@ The main dependencies are
 - nibabel
 - seaborn
 
+__DO NOT USE THE OLD ENVIRONMENT FILE TO INSTALL THE ENVIRONMENT. MANY PACKAGES HAVE CRITICAL SECURITY FLAWS.
+THEY ARE PROVIDED, BUT WE RECOMMEND YOU INSTALL THE PACKAGES FRESH.__
+
 ## Running Experiments
 Next, we provide details on how to run each experiment one by one.  
 The command to run each baseline with the hyperparameters
