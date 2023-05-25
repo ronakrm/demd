@@ -6,6 +6,11 @@ Each folder corresponds to a unique experiment in the main paper, and each folde
 For current plug-and-play, check out the `demd` folder within, and particularly `demdLoss.py`, `DEMDLayer.py`, and `demdFunc.py`.
 
 
+### Dependencies
+Dependencies are in requirements or Pipfile/locks in each folder. Old packages with security vulnerabilities (requests, tornado)
+have been removed from the requirements and pipfiles (see recent commit). __Please take care when installing via these requirements files,
+and check that versions of installed packages include security patches__. 
+
 
 ## Reference
 Efficient Discrete Multi Marginal Optimal Transport Regularization.  
