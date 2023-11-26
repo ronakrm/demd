@@ -1,15 +1,10 @@
 # Efficient Computation of d-Dimensional Earth Mover's Distance
 ![DEMD Minimization](assets/demd_hists.png)
 
-This repository contains the implementation and experiments for ICLR 2023: Efficient Discrete Multi Marginal Optimal Transport Regularization.
-Each folder corresponds to a unique experiment in the main paper, and each folder contains the corresponding version of our DEMD codebase.
-For current plug-and-play, check out the `demd` folder within, and particularly `demdLoss.py`, `DEMDLayer.py`, and `demdFunc.py`.
+Poke around the visualizations folder, and here in the root for some fun basics.
+For more details in a more digestible format, checkout this blog post: [TBD](TBD).
 
-
-### Dependencies
-Dependencies are in requirements or Pipfile/locks in each folder. Old packages with security vulnerabilities (requests, tornado)
-have been removed from the requirements and pipfiles (see recent commit). __Please take care when installing via these requirements files,
-and check that versions of installed packages include security patches__. 
+`ICLR23_Experiments` contains the implementation and experiments for ICLR 2023: Efficient Discrete Multi Marginal Optimal Transport Regularization.
 
 
 ## Reference
