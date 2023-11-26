@@ -11,6 +11,7 @@ parser.add_argument('--seed', type=int, default=8950)
 parser.add_argument('-n', type=int, default=50)
 parser.add_argument('--learning_rate', type=float, default=1e-1)
 parser.add_argument('--niters', type=int, default=1000)
+parser.add_argument('--print_rate', type=int, default=10)
 parser.add_argument('--outFolder', type=str, default='./figs/')
 parser.add_argument('--example', type=str, default='all')
 
@@ -72,7 +73,7 @@ def theEnds(n):
 
     return A, 'delta_ends', False
 
-def first_fixed(n):
+def first_fixed_4_dists(n):
 
     a1 = ot.datasets.make_1D_gauss(n, 0.2*n, 0.3*n)
     a2 = ot.datasets.make_1D_gauss(n, 0.7*n, 0.2*n)
@@ -83,7 +84,7 @@ def first_fixed(n):
 
     A = np.array([a3, a2, a1, a4])
 
-    return A, 'first_fixed', True
+    return A, 'first_fixed_4_dists', True
 
 
 def dirac_to_multimodal(n):
@@ -111,13 +112,14 @@ def simple_calibration(n):
 
 def runExample(example):
     A, name, first_fixed = example(args.n)
-    res, logs = discrete_mmot_converge(A, first_fixed=first_fixed, niters=args.niters, lr=args.learning_rate, print_rate=10, verbose=False, log=True)
+    res, logs = discrete_mmot_converge(A, first_fixed=first_fixed, niters=args.niters, lr=args.learning_rate, print_rate=args.print_rate, verbose=False, log=True)
     plim = 1.2*np.max(A)
     outName = args.outFolder + name + '_n_' + str(args.n) + '_lr_' + str(args.learning_rate) + '_niters_' + str(args.niters) + '.gif'
+    print('Generating ' + outName + '...')
     univariateGiffer(logs, outName, plim=plim, show_vals=False)
 
 if args.example == 'all':
-    examples_list = [theEnds, theEndsWaveNoise, theEndstoMid, first_fixed, simple_calibration, dirac_to_multimodal, DiracDirac]
+    examples_list = [theEnds, theEndsWaveNoise, theEndstoMid, first_fixed_4_dists, simple_calibration, dirac_to_multimodal, DiracDirac]
     for example in examples_list:
         runExample(example)
 else:

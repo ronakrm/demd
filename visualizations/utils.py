@@ -176,6 +176,6 @@ def univariateGiffer(logs, outName, plim=None, show_vals=False):
               codec="png",
               bitrate=-1,
               savefig_kwargs={"transparent": True,
-                              "bbox_inches": 'tight',
+                              #"bbox_inches": 'tight',
                               },
               )

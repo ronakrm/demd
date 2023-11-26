@@ -90,21 +90,19 @@ def discrete_mmot_converge(A, first_fixed=False, niters=100, lr=0.1, print_rate=
         log_dict['grad_norm'] = gn
         logs.append(log_dict)
 
-    print(f'Inital:\t\tObj:\t{funcval:.4f}\tGradNorm:\t{gn:.4f}')
+    if verbose:
+        print(f'Inital:\t\tObj:\t{funcval:.4f}\tGradNorm:\t{gn:.4f}')
 
     for i in range(niters):
 
-        if i % 2:
-            funcval, A, grad, _ = dualIter(A, lr)
-        else:
-            funcval, A, grad, _ = dualIter(np.fliplr(A), lr)
-            A = np.fliplr(A)
+        funcval, A, grad, _ = dualIter(A, lr)
 
         gn = np.linalg.norm(grad)
         A = renormalize(A)
 
         if i % print_rate == 0:
-            print(f'Iter {i:2.0f}:\tObj:\t{funcval:.4f}\tGradNorm:\t{gn:.4f}')
+            if verbose:
+                print(f'Iter {i:2.0f}:\tObj:\t{funcval:.4f}\tGradNorm:\t{gn:.4f}')
             if log:
                 log_dict = {}
                 log_dict['A'] = renormalize(A.copy())
