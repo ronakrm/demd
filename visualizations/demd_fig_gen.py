@@ -100,6 +100,15 @@ def dirac_to_multimodal(n):
     return A, 'dirac_to_multimodal', True
 
 
+def simple_calibration_centered(n):
+
+    a1 = ot.datasets.make_1D_gauss(n, 0.8*n, 0.1*n)
+    a2 = ot.datasets.make_1D_gauss(n, 0.2*n, 0.1*n) 
+
+    A = np.array([a1, a2])
+    return A, 'simple_calibrate_symmetric', False
+
+
 def simple_calibration(n):
 
     a1 = ot.datasets.make_1D_gauss(n, 0.5*n, 0.1*n) \
@@ -119,7 +128,7 @@ def runExample(example):
     univariateGiffer(logs, outName, plim=plim, show_vals=False)
 
 if args.example == 'all':
-    examples_list = [theEnds, theEndsWaveNoise, theEndstoMid, first_fixed_4_dists, simple_calibration, dirac_to_multimodal, DiracDirac]
+    examples_list = [simple_calibration_centered, theEnds, theEndsWaveNoise, theEndstoMid, first_fixed_4_dists, simple_calibration, dirac_to_multimodal, DiracDirac]
     for example in examples_list:
         runExample(example)
 else:

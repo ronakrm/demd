@@ -147,7 +147,7 @@ def univariateGiffer(logs, outName, plim=None, show_vals=False):
                                 stat='count',
                                 bins=bin_boundaries,
                                 color=myColors[i],
-                                alpha=1,
+                                alpha=0.5 + 0.5*((n-i)/n),
                                 ax=ax,
                                 legend=False
                                 )
