@@ -108,7 +108,7 @@ def giffer(logs, outName, plim=0.5, show_vals=False):
               bitrate=-1
               #savefig_kwargs={"transparent": True, "facecolor": "none"},
               )
-def univariateGiffer(logs, outName, plim=None, show_vals=False):
+def univariateGiffer(logs, outName, plim=None, show_vals=False, alpha=False):
 
     plt.rcParams["axes.grid"] = False
     plt.rcParams["axes.linewidth"]  = 0.0
@@ -142,12 +142,17 @@ def univariateGiffer(logs, outName, plim=None, show_vals=False):
         #colors = sns.set_palette("tab10", n=n)
 
         for i in range(n):
+            if alpha:
+                alph = 0.5 + 0.5*((n-i)/n)
+            else:
+                alph = 1
+
             sns.histplot(x=range(d),
                                 weights=A[i,:], 
                                 stat='count',
                                 bins=bin_boundaries,
                                 color=myColors[i],
-                                alpha=0.5 + 0.5*((n-i)/n),
+                                alpha=alph,
                                 ax=ax,
                                 legend=False
                                 )

@@ -95,6 +95,8 @@ def discrete_mmot_converge(A, first_fixed=False, niters=100, lr=0.1, print_rate=
 
     for i in range(niters):
 
+        if i > 250:
+            lr = lr*0.995
         funcval, A, grad, _ = dualIter(A, lr)
 
         gn = np.linalg.norm(grad)
@@ -112,14 +114,14 @@ def discrete_mmot_converge(A, first_fixed=False, niters=100, lr=0.1, print_rate=
 
     #import pdb; pdb.set_trace()
     #_, _, _, _ = dualIter(A, lr)
-    log_dict = {}
-    log_dict['A'] = renormalize(A)
-    log_dict['func_val'] = funcval
-    log_dict['grad_norm'] = gn
-    logs.append(log_dict)
-
-
+  
     if log:
+        log_dict = {}
+        log_dict['A'] = renormalize(A)
+        log_dict['func_val'] = funcval
+        log_dict['grad_norm'] = gn
+        logs.append(log_dict)
+
         return A, logs
     else:
         return A 

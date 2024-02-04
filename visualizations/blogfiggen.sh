@@ -1,2 +1,3 @@
-# This generates the main figure copying the one in the ICLR teaser
-python demd_fig_gen.py --example first_fixed_4_dists --learning_rate 0.1 --niters 1000 --print_rate 10 -n 50
+python demd_fig_gen.py --niters 1000 --print_rate 10 --learning_rate 0.1 -n 50 --example simple_calibrate_centered --alpha
+python demd_fig_gen.py --niters 1000 --print_rate 10 --learning_rate 0.1 -n 50 --example four_dists --first_fixed
+python demd_fig_gen.py --niters 1000 --print_rate 10 --learning_rate 0.1 -n 50 --example four_dists

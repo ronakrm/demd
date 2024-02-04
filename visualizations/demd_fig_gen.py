@@ -14,11 +14,13 @@ parser.add_argument('--niters', type=int, default=1000)
 parser.add_argument('--print_rate', type=int, default=10)
 parser.add_argument('--outFolder', type=str, default='./figs/')
 parser.add_argument('--example', type=str, default='all')
+parser.add_argument('--first_fixed', action='store_true', default=False)
+parser.add_argument('--alpha', action='store_true', default=False)
 
 args = parser.parse_args()
 np.random.seed(args.seed)
 
-def theEndstoMid(n):
+def theEndstoMid(n, first_fixed=False):
 
     a1 = [1e-4 for i in range(n)]
     a1[0] = 1.0
@@ -32,9 +34,9 @@ def theEndstoMid(n):
 
     A = np.array([a1, a2, a3])
 
-    return A, 'dirac_to_mid', False
+    return A, 'dirac_to_mid', first_fixed
  
-def theEndsWaveNoise(n):
+def theEndsWaveNoise(n, first_fixed=False):
 
     a1 = [1e-4*np.random.rand() for i in range(n)]
     a1[0] = 1.0
@@ -45,9 +47,9 @@ def theEndsWaveNoise(n):
 
     A = np.array([a1, a2])
 
-    return A, 'delta_ends_wave', False
+    return A, 'delta_ends_wave', first_fixed
 
-def DiracDirac(n):
+def DiracDirac(n, first_fixed=True):
 
     a1 = [0 for i in range(n)]
     a1[0] = 1.0
@@ -56,9 +58,9 @@ def DiracDirac(n):
 
     A = np.array([a1, a2])
 
-    return A, 'dirac_dirac', True
+    return A, 'dirac_dirac', first_fixed
 
-def theEnds(n):
+def theEnds(n, first_fixed=False):
 
     a1 = 0.1*ot.datasets.make_1D_gauss(n, 0.5*n, n)
     #a1 = [1e-4 for i in range(n)]
@@ -71,9 +73,9 @@ def theEnds(n):
 
     A = np.array([a1, a2])
 
-    return A, 'delta_ends', False
+    return A, 'delta_ends', first_fixed
 
-def first_fixed_4_dists(n):
+def four_dists(n, first_fixed=True):
 
     a1 = ot.datasets.make_1D_gauss(n, 0.2*n, 0.3*n)
     a2 = ot.datasets.make_1D_gauss(n, 0.7*n, 0.2*n)
@@ -84,10 +86,10 @@ def first_fixed_4_dists(n):
 
     A = np.array([a3, a2, a1, a4])
 
-    return A, 'first_fixed_4_dists', True
+    return A, 'four_dists', first_fixed
 
 
-def dirac_to_multimodal(n):
+def dirac_to_multimodal(n, first_fixed=True):
 
     a1 = ot.datasets.make_1D_gauss(n, 0.5*n, 0.1*n) \
         + ot.datasets.make_1D_gauss(n, 0.1*n, 0.1*n) 
@@ -97,39 +99,30 @@ def dirac_to_multimodal(n):
     a2 = np.array(a2)/sum(a2)
 
     A = np.array([a1, a2])
-    return A, 'dirac_to_multimodal', True
+    return A, 'dirac_to_multimodal', first_fixed
 
 
-def simple_calibration_centered(n):
+def simple_calibration_centered(n, first_fixed=False):
 
     a1 = ot.datasets.make_1D_gauss(n, 0.8*n, 0.1*n)
     a2 = ot.datasets.make_1D_gauss(n, 0.2*n, 0.1*n) 
 
     A = np.array([a1, a2])
-    return A, 'simple_calibrate_symmetric', False
+    return A, 'simple_calibrate_symmetric', first_fixed
 
 
-def simple_calibration(n):
+def simple_calibration(n, first_fixed=True):
 
     a1 = ot.datasets.make_1D_gauss(n, 0.5*n, 0.1*n) \
-        + ot.datasets.make_1D_gauss(n, 0.1*n, 0.1*n) 
-    cuma2 = [(i+1)/n for i in range(n)]
-    a2 = [i/sum(cuma2) for i in cuma2]
+        + ot.datasets.make_1D_gauss(n, 0.1*n, 0.1*n)
+    return A, 'simple_calibrate', first_fixed
 
-    A = np.array([a1, a2])
-    return A, 'simple_calibrate', True
-
-def runExample(example):
-    A, name, first_fixed = example(args.n)
+def runExample(example, n, first_fixed):
+    A, name, first_fixed = example(n, first_fixed=first_fixed)
     res, logs = discrete_mmot_converge(A, first_fixed=first_fixed, niters=args.niters, lr=args.learning_rate, print_rate=args.print_rate, verbose=False, log=True)
     plim = 1.2*np.max(A)
-    outName = args.outFolder + name + '_n_' + str(args.n) + '_lr_' + str(args.learning_rate) + '_niters_' + str(args.niters) + '.gif'
+    outName = args.outFolder + name + '_ff_' + str(first_fixed) + '_n_' + str(args.n) + '_lr_' + str(args.learning_rate) + '_niters_' + str(args.niters) + '.gif'
     print('Generating ' + outName + '...')
-    univariateGiffer(logs, outName, plim=plim, show_vals=False)
+    univariateGiffer(logs, outName, plim=plim, show_vals=False, alpha=args.alpha)
 
-if args.example == 'all':
-    examples_list = [simple_calibration_centered, theEnds, theEndsWaveNoise, theEndstoMid, first_fixed_4_dists, simple_calibration, dirac_to_multimodal, DiracDirac]
-    for example in examples_list:
-        runExample(example)
-else:
-    runExample(eval(args.example))
+runExample(eval(args.example), n=args.n, first_fixed=args.first_fixed)
