@@ -108,7 +108,7 @@ def giffer(logs, outName, plim=0.5, show_vals=False):
               bitrate=-1
               #savefig_kwargs={"transparent": True, "facecolor": "none"},
               )
-def univariateGiffer(logs, outName, plim=None, show_vals=False, alpha=False):
+def univariateGiffer(logs, outName, plim=None, show_vals=False, alpha=False, total_time=5000):
 
     plt.rcParams["axes.grid"] = False
     plt.rcParams["axes.linewidth"]  = 0.0
@@ -173,7 +173,7 @@ def univariateGiffer(logs, outName, plim=None, show_vals=False, alpha=False):
     anim = animation.FuncAnimation(fig,
                                    animate,
                                    init_func=animate,
-                                   interval=5000/len(logs),
+                                   interval=total_time/len(logs),
                                    frames=len(logs),
                                    repeat=False
                                    )
