@@ -2,7 +2,7 @@
 ![DEMD Minimization](assets/demd_hists.png)
 
 Poke around the visualizations folder, and here in the root for some fun basics.
-For more details in a more digestible format, checkout this blog post: [TBD](TBD).
+For a high-level overview in a more digestible format, checkout my blog post: [Incorporating Preferences is Easy if you Discretize](https://ronakrm.github.io/discretized-preferences-are-easy/).
 
 `ICLR23_Experiments` contains the implementation and experiments for ICLR 2023: Efficient Discrete Multi Marginal Optimal Transport Regularization.
 
